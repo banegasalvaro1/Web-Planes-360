@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html { scroll-behavior: smooth; }
+        
         /* Estilos para el contenedor del video (16:9 aspect ratio) */
         .video-container {
             position: relative;
@@ -25,20 +26,69 @@
             width: 100%;
             height: 100%;
         }
+
+        /* MOTOR DE ANIMACIONES CORPORATIVAS */
+        .reveal {
+            opacity: 0;
+            visibility: hidden;
+            /* Curva de aceleración profesional (lenta al final) */
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Direcciones de entrada */
+        .fade-bottom { transform: translateY(40px); }
+        .fade-bottom.active { transform: translateY(0); }
+        
+        .fade-left { transform: translateX(-40px); }
+        .fade-left.active { transform: translateX(0); }
+        
+        .fade-right { transform: translateX(40px); }
+        .fade-right.active { transform: translateX(0); }
+        
+        .scale-up { transform: scale(0.95); }
+        .scale-up.active { transform: scale(1); }
+
+        /* Tiempos de retraso para efecto en cascada (stagger) */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Animación continua de fondo */
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            100% { transform: translate(-50%, -50%) translateY(0px); }
+        }
+        .bg-float {
+            animation: float 8s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="min-h-screen bg-[#0A2626] text-[#F2F2F2] font-sans selection:bg-[#F24607] selection:text-[#F2F2F2]">
+<body class="min-h-screen bg-[#0A2626] text-[#F2F2F2] font-sans selection:bg-[#F24607] selection:text-[#F2F2F2] overflow-x-hidden">
 
     <!-- NAVEGACIÓN -->
-    <nav class="sticky top-0 z-50 bg-[#0A2626]/95 backdrop-blur border-b border-[#F2F2F2]/10 px-6 py-4">
+    <nav id="main-nav" class="sticky top-0 z-50 bg-[#0A2626]/80 backdrop-blur-md border-b border-[#F2F2F2]/10 px-6 py-4 transition-transform duration-500 ease-in-out">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <!-- Logo JPG y Nombre de la Agencia -->
             <div class="flex items-center justify-center">
                 <!-- Se busca el archivo 'logo.jpg' en el mismo directorio -->
-                <img src="logo.jpg" alt="Logo" class="h-20 w-auto object-contain rounded-md" onerror="this.style.display='none'">
-                <span class="ml-4 text-2xl md:text-3xl font-bold tracking-wide text-[#F2F2F2]">591 Creative Studio</span>
+                <img src="logo.jpg" alt="Logo" class="h-14 w-auto object-contain rounded-md transition-transform hover:scale-105" onerror="this.style.display='none'">
+                <span class="ml-4 text-xl md:text-2xl font-bold tracking-wide text-[#F2F2F2]">591 Creative Studio</span>
             </div>
-            <a href="#planes" class="hidden md:flex items-center gap-2 bg-[#F24607] hover:bg-[#d13c06] transition-colors text-[#F2F2F2] px-5 py-2 rounded-sm font-semibold text-sm">
+            
+            <!-- Pestañas de Navegación (Futuras páginas) -->
+            <div class="hidden lg:flex space-x-8">
+                <a href="#" class="text-[#F2F2F2]/70 hover:text-[#F24607] transition-colors font-medium text-sm">La Agencia</a>
+                <a href="#" class="text-[#F24607] font-semibold border-b-2 border-[#F24607] pb-1 text-sm">Marketing & IA</a>
+                <a href="#" class="text-[#F2F2F2]/70 hover:text-[#F24607] transition-colors font-medium text-sm">Audiovisual</a>
+                <a href="#" class="text-[#F2F2F2]/70 hover:text-[#F24607] transition-colors font-medium text-sm">Podcasts</a>
+            </div>
+
+            <a href="#planes" class="hidden md:flex items-center gap-2 bg-[#F24607] hover:bg-[#d13c06] transition-colors text-[#F2F2F2] px-5 py-2 rounded-sm font-semibold text-sm hover:shadow-[0_0_15px_rgba(242,70,7,0.4)]">
                 Ver Planes 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -46,23 +96,23 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <header class="relative px-6 py-12 md:py-20 overflow-hidden">
+    <header class="relative px-6 py-16 md:py-24 overflow-hidden">
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F2F2F2]/10 border border-[#F24607]/30 text-[#F24607] text-sm font-medium mb-6">
+            <div class="reveal fade-bottom inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F2F2F2]/10 border border-[#F24607]/30 text-[#F24607] text-sm font-medium mb-6 backdrop-blur-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                 <span>Marketing Digital 360° + IA Integrada</span>
             </div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 class="reveal fade-bottom delay-100 text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span class="text-[#F24607]">La evolución del marketing</span><br class="hidden md:block"/>
                 <span class="text-[#F2F2F2]">para escalar su negocio.</span>
             </h1>
-            <p class="text-lg md:text-xl text-[#F2F2F2]/80 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p class="reveal fade-bottom delay-200 text-lg md:text-xl text-[#F2F2F2]/80 mb-10 max-w-2xl mx-auto leading-relaxed">
                 Generamos, filtramos y calificamos sus leads. Nuestro sistema combina lo mejor del marketing digital con la eficiencia de un Asistente de IA para WhatsApp Business. <strong>Usted solo se encarga de cerrar ventas.</strong>
             </p>
 
             <!-- VSL VIDEO SECTION (YOUTUBE EMBED) -->
-            <div class="relative w-full max-w-3xl mx-auto mb-10 rounded-xl overflow-hidden shadow-2xl shadow-[#F24607]/10 border border-[#F2F2F2]/10 bg-[#041010]">
-                <div class="video-container">
+            <div class="reveal scale-up delay-300 relative w-full max-w-3xl mx-auto mb-12 rounded-xl overflow-hidden shadow-2xl shadow-[#F24607]/10 border border-[#F2F2F2]/10 bg-[#041010] group">
+                <div class="video-container group-hover:scale-[1.01] transition-transform duration-700">
                     <iframe 
                         src="https://www.youtube.com/embed/sqVGSxYMrr8?autoplay=1&mute=1&controls=1&loop=1&playlist=sqVGSxYMrr8&modestbranding=1&rel=0&iv_load_policy=3" 
                         title="591 Creative Studio VSL" 
@@ -73,49 +123,52 @@
                     </iframe>
                 </div>
                 <!-- Indicador visual -->
-                 <div class="absolute top-4 left-4 bg-black/60 text-[#F2F2F2] text-xs px-3 py-1.5 rounded-full backdrop-blur-sm flex items-center gap-2 pointer-events-none z-20">
-                    <div class="w-2 h-2 bg-[#F24607] rounded-full animate-pulse"></div>
+                 <div class="absolute top-4 left-4 bg-black/60 text-[#F2F2F2] text-xs px-3 py-1.5 rounded-full backdrop-blur-sm flex items-center gap-2 pointer-events-none z-20 border border-white/10">
+                    <div class="w-2 h-2 bg-[#F24607] rounded-full animate-pulse shadow-[0_0_8px_#F24607]"></div>
                     Visualización Corporativa
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-30">
-                <a href="https://wa.link/jar93g" target="_blank" rel="noopener noreferrer" class="bg-[#F24607] hover:bg-[#d13c06] transition-all px-8 py-4 rounded-sm font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-[#F24607]/20">
+            <div class="reveal fade-bottom delay-300 flex flex-col sm:flex-row gap-4 justify-center relative z-30">
+                <a href="https://wa.link/jar93g" target="_blank" rel="noopener noreferrer" class="bg-[#F24607] hover:bg-[#d13c06] hover:scale-105 transition-all duration-300 px-8 py-4 rounded-sm font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-[#F24607]/20">
                     Consultar Planes Mensuales
                 </a>
-                <a href="#proceso" class="bg-transparent border border-[#F2F2F2]/30 hover:border-[#F2F2F2] transition-all px-8 py-4 rounded-sm font-bold text-lg flex items-center justify-center gap-2">
+                <a href="#proceso" class="bg-transparent border border-[#F2F2F2]/30 hover:border-[#F2F2F2] hover:bg-[#F2F2F2]/5 transition-all duration-300 px-8 py-4 rounded-sm font-bold text-lg flex items-center justify-center gap-2">
                     Conocer el Proceso
                 </a>
             </div>
         </div>
-        <!-- Decoración de fondo -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F24607]/5 rounded-full blur-3xl -z-0"></div>
+        <!-- Decoración de fondo animada -->
+        <div class="bg-float absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-[#F24607]/10 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
     </header>
 
     <!-- PROPUESTA DE VALOR -->
-    <section class="px-6 py-20 bg-[#061818]">
+    <section class="px-6 py-24 bg-[#061818] relative z-10">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="reveal fade-bottom text-center mb-16">
                 <h2 class="text-3xl font-bold mb-4">¿Por qué elegir nuestro ecosistema 360°?</h2>
                 <p class="text-[#F2F2F2]/70 max-w-2xl mx-auto">En un mercado competitivo, las campañas publicitarias por sí solas no son suficientes. Optimizamos todo el embudo de conversión.</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 transition-colors">
-                    <div class="w-12 h-12 bg-[#F24607]/10 rounded-sm flex items-center justify-center text-[#F24607] mb-6">
+                <!-- Tarjeta 1 -->
+                <div class="reveal fade-bottom delay-100 bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-[#F24607]/10">
+                    <div class="w-12 h-12 bg-[#F24607]/10 rounded-sm flex items-center justify-center text-[#F24607] mb-6 transition-transform group-hover:scale-110">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Tráfico Calificado</h3>
                     <p class="text-[#F2F2F2]/70">Estrategias de pauta publicitaria hiper-segmentadas para atraer prospectos con verdadera intención de compra.</p>
                 </div>
-                <div class="bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 transition-colors">
+                <!-- Tarjeta 2 -->
+                <div class="reveal fade-bottom delay-200 bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-[#F24607]/10">
                     <div class="w-12 h-12 bg-[#F24607]/10 rounded-sm flex items-center justify-center text-[#F24607] mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Contenido Profesional</h3>
                     <p class="text-[#F2F2F2]/70">Producción audiovisual guionizada y orientada a la conversión, adaptada a los objetivos específicos de cada campaña.</p>
                 </div>
-                <div class="bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 transition-colors">
+                <!-- Tarjeta 3 -->
+                <div class="reveal fade-bottom delay-300 bg-[#0A2626] p-8 rounded-sm border border-[#F2F2F2]/10 hover:border-[#F24607]/50 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-[#F24607]/10">
                     <div class="w-12 h-12 bg-[#F24607]/10 rounded-sm flex items-center justify-center text-[#F24607] mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                     </div>
@@ -127,9 +180,9 @@
     </section>
 
     <!-- METODOLOGÍA -->
-    <section id="proceso" class="px-6 py-20 border-t border-[#F2F2F2]/5">
+    <section id="proceso" class="px-6 py-24 border-t border-[#F2F2F2]/5 relative z-10 bg-[#0A2626]">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="reveal fade-bottom text-center mb-16">
                 <h2 class="text-3xl font-bold mb-4">Un Ciclo Completo de Ventas Automatizadas</h2>
                 <p class="text-[#F2F2F2]/70">Metodología comprobada de 5 fases para garantizar el retorno de inversión.</p>
             </div>
@@ -137,11 +190,11 @@
             <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#F24607] before:to-transparent">
                 
                 <!-- Fase 1 -->
-                <div class="relative flex items-center justify-between md:justify-normal group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow">
+                <div class="reveal fade-right relative flex items-center justify-between md:justify-normal group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_15px_#F24607]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#0A2626] p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#041010] hover:bg-[#061818] transition-colors duration-300 p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[#F24607] font-bold text-sm">Fase 1</span>
                             <h4 class="font-bold text-lg">Análisis Interno y Externo</h4>
@@ -151,11 +204,11 @@
                 </div>
 
                 <!-- Fase 2 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:-translate-x-1/2 shadow">
+                <div class="reveal fade-left delay-100 relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:-translate-x-1/2 shadow transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_15px_#F24607]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#0A2626] p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#041010] hover:bg-[#061818] transition-colors duration-300 p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[#F24607] font-bold text-sm">Fase 2</span>
                             <h4 class="font-bold text-lg">Producción de Contenido</h4>
@@ -165,11 +218,11 @@
                 </div>
 
                 <!-- Fase 3 -->
-                <div class="relative flex items-center justify-between md:justify-normal group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow">
+                <div class="reveal fade-right delay-200 relative flex items-center justify-between md:justify-normal group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_15px_#F24607]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#0A2626] p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#041010] hover:bg-[#061818] transition-colors duration-300 p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[#F24607] font-bold text-sm">Fase 3</span>
                             <h4 class="font-bold text-lg">Ejecución de Campañas</h4>
@@ -179,11 +232,11 @@
                 </div>
 
                 <!-- Fase 4 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:-translate-x-1/2 shadow">
+                <div class="reveal fade-left delay-300 relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:-translate-x-1/2 shadow transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_15px_#F24607]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#0A2626] p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#041010] hover:bg-[#061818] transition-colors duration-300 p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[#F24607] font-bold text-sm">Fase 4</span>
                             <h4 class="font-bold text-lg">Calificación con IA</h4>
@@ -193,11 +246,11 @@
                 </div>
 
                 <!-- Fase 5 -->
-                <div class="relative flex items-center justify-between md:justify-normal group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow">
+                <div class="reveal fade-right delay-200 relative flex items-center justify-between md:justify-normal group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0A2626] bg-[#F24607] text-[#F2F2F2] shrink-0 md:order-1 md:translate-x-1/2 shadow transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_15px_#F24607]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#0A2626] p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#041010] hover:bg-[#061818] transition-colors duration-300 p-6 rounded-sm border border-[#F2F2F2]/10 shadow-lg">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="text-[#F24607] font-bold text-sm">Fase 5</span>
                             <h4 class="font-bold text-lg">Cierre y Conversión</h4>
@@ -210,9 +263,12 @@
     </section>
 
     <!-- PLANES DE INVERSIÓN -->
-    <section id="planes" class="px-6 py-24 bg-[#061818]">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
+    <section id="planes" class="px-6 py-24 bg-[#061818] relative">
+        <!-- Resplandor de fondo sutil -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-[#F24607]/5 rounded-[100%] blur-[80px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="reveal fade-bottom text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Planes de Inversión Mensual</h2>
                 <p class="text-[#F2F2F2]/70 max-w-2xl mx-auto">Soluciones escalables diseñadas para estructurar y acelerar el crecimiento comercial de su empresa.</p>
             </div>
@@ -220,8 +276,8 @@
             <div class="grid lg:grid-cols-3 gap-8 items-start">
                 
                 <!-- PLAN FULL 360 -->
-                <div class="bg-[#F2F2F2] text-[#0A2626] border-2 border-[#F24607] rounded-sm p-8 flex flex-col h-full relative shadow-2xl shadow-[#F24607]/10">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#F24607] text-[#F2F2F2] px-4 py-1 text-xs font-bold uppercase tracking-wider rounded-sm">
+                <div class="reveal fade-bottom delay-200 bg-[#F2F2F2] text-[#0A2626] border-2 border-[#F24607] rounded-sm p-8 flex flex-col h-full relative shadow-[0_15px_30px_rgba(242,70,7,0.15)] transform lg:-translate-y-4 hover:scale-[1.03] hover:shadow-[0_0_80px_rgba(242,70,7,0.5)] transition-all duration-500 z-10 hover:z-20">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#F24607] text-[#F2F2F2] px-4 py-1 text-xs font-bold uppercase tracking-wider rounded-sm shadow-md">
                         Máxima Automatización
                     </div>
                     <div class="mb-6">
@@ -242,13 +298,13 @@
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>Community Manager dedicado</span></li>
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>Reporte ejecutivo mensual</span></li>
                     </ul>
-                    <a href="https://wa.link/qy2wwk" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-4 bg-[#F24607] hover:bg-[#d13c06] text-[#F2F2F2] transition-colors font-bold text-lg rounded-sm shadow-lg shadow-[#F24607]/30">
+                    <a href="https://wa.link/qy2wwk" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-4 bg-[#F24607] hover:bg-[#d13c06] text-[#F2F2F2] transition-colors font-bold text-lg rounded-sm shadow-[0_10px_20px_rgba(242,70,7,0.3)] hover:shadow-[0_0_25px_rgba(242,70,7,0.6)] hover:scale-[1.03] duration-300">
                         Seleccionar Full 360
                     </a>
                 </div>
 
                 <!-- PLAN PRO -->
-                <div class="bg-[#0A2626] border border-[#F2F2F2]/20 rounded-sm p-8 flex flex-col h-full">
+                <div class="reveal fade-bottom delay-100 bg-[#0A2626] border border-[#F2F2F2]/20 hover:border-[#F24607]/80 rounded-sm p-8 flex flex-col h-full relative transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_60px_rgba(242,70,7,0.4)] z-10 hover:z-20">
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-[#F2F2F2] mb-2">Pro</h3>
                         <p class="text-[#F2F2F2]/60 text-sm h-10">Para negocios en etapa de escalamiento sostenido en ventas.</p>
@@ -264,13 +320,13 @@
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>15 posteos en redes (FB, IG, TK)</span></li>
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>Reporte de métricas mensual</span></li>
                     </ul>
-                    <a href="https://wa.link/uyw4sm" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-3 border border-[#F2F2F2]/30 hover:bg-[#F2F2F2]/10 transition-colors font-semibold rounded-sm">
+                    <a href="https://wa.link/uyw4sm" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-3 border border-[#F2F2F2]/30 hover:bg-[#F24607]/10 hover:border-[#F24607]/50 hover:text-[#F24607] transition-all font-semibold rounded-sm">
                         Seleccionar Pro
                     </a>
                 </div>
 
                 <!-- PLAN ESSENTIAL -->
-                <div class="bg-[#0A2626] border border-[#F2F2F2]/20 rounded-sm p-8 flex flex-col h-full">
+                <div class="reveal fade-bottom delay-300 bg-[#0A2626] border border-[#F2F2F2]/20 hover:border-[#F24607]/80 rounded-sm p-8 flex flex-col h-full relative transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_60px_rgba(242,70,7,0.4)] z-10 hover:z-20">
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold text-[#F2F2F2] mb-2">Essential</h3>
                         <p class="text-[#F2F2F2]/60 text-sm h-10">Ideal para negocios pequeños y emprendimientos emergentes.</p>
@@ -286,7 +342,7 @@
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>8 posteos en redes (FB e IG)</span></li>
                         <li class="flex items-start gap-3 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#F24607] shrink-0"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span>Reporte de métricas mensual</span></li>
                     </ul>
-                    <a href="https://wa.link/k70x61" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-3 border border-[#F2F2F2]/30 hover:bg-[#F2F2F2]/10 transition-colors font-semibold rounded-sm">
+                    <a href="https://wa.link/k70x61" target="_blank" rel="noopener noreferrer" class="block text-center w-full py-3 border border-[#F2F2F2]/30 hover:bg-[#F24607]/10 hover:border-[#F24607]/50 hover:text-[#F24607] transition-all font-semibold rounded-sm">
                         Seleccionar Essential
                     </a>
                 </div>
@@ -296,7 +352,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-[#041010] py-12 px-6 border-t border-[#F2F2F2]/10">
+    <footer class="bg-[#041010] py-12 px-6 border-t border-[#F2F2F2]/10 relative z-10">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <!-- Logo JPG pequeño -->
             <div class="flex items-center justify-center">
@@ -309,5 +365,51 @@
         </div>
     </footer>
 
+    <!-- SCRIPT DE INTERSECTION OBSERVER PARA ANIMACIONES Y SMART NAV -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            // Configuración del observador: se activa cuando el 10% del elemento es visible
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Añade la clase 'active' para iniciar la transición CSS
+                        entry.target.classList.add('active');
+                        // Dejar de observar una vez animado (para que no se repita al subir/bajar)
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(element => {
+                revealOnScroll.observe(element);
+            });
+
+            // Lógica Smart Header (Ocultar al bajar, mostrar al subir)
+            const navbar = document.getElementById('main-nav');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                // Si el scroll supera la altura de la cabecera (80px) y baja
+                if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Si el usuario vuelve a subir
+                    navbar.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollY = currentScrollY;
+            }, { passive: true }); // passive: true optimiza el rendimiento del scroll
+        });
+    </script>
 </body>
 </html>
